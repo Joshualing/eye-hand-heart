@@ -19,13 +19,13 @@ import java.util.List;
  * @since JDK 1.8
  */
 @Service
-public class TotalSumFilterProcessManager extends AbstractFilterProcess {
-    private static Logger logger = LoggerFactory.getLogger(TotalSumFilterProcessManager.class);
+public class ExclusiveSumFilterProcessManager extends AbstractFilterProcess {
+    private static Logger logger = LoggerFactory.getLogger(ExclusiveSumFilterProcessManager.class);
     @Autowired
     private TotalWords totalWords;
 
-    @Resource(name = "numberFilterProcess")
-    private FilterProcess numberFilterProcess;
+    @Resource(name = "exclusiveFilterProcess")
+    private FilterProcess exclusiveFilterProcess;
 
     //@Resource(name = "httpFilterProcess")
     //private FilterProcess httpFilterProcess;
@@ -36,7 +36,7 @@ public class TotalSumFilterProcessManager extends AbstractFilterProcess {
     @PostConstruct
     @Override
     public void start() {
-        this.addProcess(numberFilterProcess);
+        this.addProcess(exclusiveFilterProcess);
     }
 
     @Override
