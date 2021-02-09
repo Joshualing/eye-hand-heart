@@ -3,7 +3,6 @@ package top.crossoverjie.nows.nows.thread;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import top.crossoverjie.nows.nows.config.AppConfig;
-import top.crossoverjie.nows.nows.constants.BaseConstants;
 import top.crossoverjie.nows.nows.filter.AbstractFilterProcess;
 import top.crossoverjie.nows.nows.util.SpringBeanFactory;
 import java.nio.charset.StandardCharsets;
@@ -39,6 +38,11 @@ public class ScanTask implements Runnable {
 
     @Override
     public void run() {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException exception) {
+            exception.printStackTrace();
+        }
         Stream<String> stringStream = null;
         try {
             stringStream = Files.lines(Paths.get(path), StandardCharsets.UTF_8);
@@ -46,13 +50,11 @@ public class ScanTask implements Runnable {
             logger.error("IOException", e);
         }
 
-        if (appConfig.getAppModel().equals(BaseConstants.TOTAL_WORDS)) {
-            List<String> collect = stringStream.collect(Collectors.toList());
-            for (String msg : collect) {
-                filterProcessManager.process(msg);
-            }
-
+        List<String> collect = stringStream.collect(Collectors.toList());
+        for (String msg : collect) {
+            filterProcessManager.process(msg);
         }
+        logger.info("统计字数任务");
     }
 
 }

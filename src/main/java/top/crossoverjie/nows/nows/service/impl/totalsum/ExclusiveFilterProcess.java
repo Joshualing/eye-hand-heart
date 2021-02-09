@@ -15,7 +15,11 @@ public class ExclusiveFilterProcess implements FilterProcess {
     @Override
     public String process(String msg) {
 
+        /***将msg中的空白字符，包括空格、制表符、换页符去除***/
         msg = msg.replaceAll("\\s*", "");
+
+        msg = msg.replaceAll("\\,", "");
+        msg = msg.replaceAll("\\.", "");
 
         return msg;
     }

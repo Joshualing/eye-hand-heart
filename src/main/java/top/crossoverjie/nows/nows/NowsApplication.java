@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import top.crossoverjie.nows.nows.config.AppConfig;
 import top.crossoverjie.nows.nows.constants.BaseConstants;
 import top.crossoverjie.nows.nows.filter.AbstractFilterProcess;
+import top.crossoverjie.nows.nows.filter.ExclusiveSumFilterProcessManager;
 import top.crossoverjie.nows.nows.filter.TotalSumFilterProcessManager;
 import top.crossoverjie.nows.nows.scan.ScannerFile;
 import top.crossoverjie.nows.nows.service.ResultService;
@@ -32,6 +33,7 @@ import java.util.concurrent.TimeUnit;
  *
  * 拓展
  * 1.责任链模式
+ * 2.工厂模式
  */
 @SpringBootApplication
 public class NowsApplication implements CommandLineRunner {
@@ -54,7 +56,7 @@ public class NowsApplication implements CommandLineRunner {
 
 
     public static void main(String[] args) {
-        SpringApplication.run(NowsApplication.class, "2");
+        SpringApplication.run(NowsApplication.class, args);
 
     }
 
@@ -62,6 +64,13 @@ public class NowsApplication implements CommandLineRunner {
     public void run(String... strings) throws Exception {
         if (config.getAppModel().equals(BaseConstants.TOTAL_WORDS)) {
             filterProcessManager = SpringBeanFactory.getBean(TotalSumFilterProcessManager.class);
+            resultService = SpringBeanFactory.getBean(TotalSumResultServiceImpl.class);
+            ((TotalSumResultServiceImpl) resultService).setCurrentTime();
+
+        }
+
+        if (config.getAppModel().equals(BaseConstants.FILTER_WORDS)) {
+            filterProcessManager = SpringBeanFactory.getBean(ExclusiveSumFilterProcessManager.class);
             resultService = SpringBeanFactory.getBean(TotalSumResultServiceImpl.class);
             ((TotalSumResultServiceImpl) resultService).setCurrentTime();
 
@@ -77,7 +86,7 @@ public class NowsApplication implements CommandLineRunner {
 
         executorService.shutdown();
         while (!executorService.awaitTermination(100, TimeUnit.MILLISECONDS)) {
-            //logger.info("worker running");
+            logger.info("worker running");
         }
 
         resultService.end();

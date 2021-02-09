@@ -57,7 +57,6 @@ public class ExclusiveSumFilterProcessManager extends AbstractFilterProcess {
             msg = filterProcess.process(msg);
         }
         totalWords.sum(msg.toCharArray().length);
-        logger.info("统计字数任务");
         return msg;
     }
 }
