@@ -27,8 +27,9 @@ public class ExclusiveSumFilterProcessManager extends AbstractFilterProcess {
     @Resource(name = "exclusiveFilterProcess")
     private FilterProcess exclusiveFilterProcess;
 
-    //@Resource(name = "httpFilterProcess")
-    //private FilterProcess httpFilterProcess;
+    @Autowired
+    @Resource(name = "processLowerCaseFilterProcess")
+    private FilterProcess processLowerCaseFilterProcess;
 
     private List<FilterProcess> filterProcesses = new ArrayList<>(10);
 
@@ -36,7 +37,7 @@ public class ExclusiveSumFilterProcessManager extends AbstractFilterProcess {
     @PostConstruct
     @Override
     public void start() {
-        this.addProcess(exclusiveFilterProcess);
+        addProcess(exclusiveFilterProcess).addProcess(processLowerCaseFilterProcess);
     }
 
     @Override

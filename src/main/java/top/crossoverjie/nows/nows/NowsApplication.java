@@ -29,10 +29,11 @@ import java.util.concurrent.TimeUnit;
  * 涉及知识
  * 1.spring boot
  * 2.多线程
- * 3.设计模式 策略模式
+ * 3.设计模式
+ * 责任链模式 体现在:filterProcess是以List的形式进行组合
+ * 策略模式 体现在：filterProcessManager可以根据传入的类型进行获取
  *
  * 拓展
- * 1.责任链模式
  * 2.工厂模式
  */
 @SpringBootApplication
@@ -57,7 +58,6 @@ public class NowsApplication implements CommandLineRunner {
 
     public static void main(String[] args) {
         SpringApplication.run(NowsApplication.class, args);
-
     }
 
     @Override

@@ -9,8 +9,7 @@ import top.crossoverjie.nows.nows.service.ResultService;
 /**
  * Function:
  *
- * @author crossoverJie
- * Date: 2019-05-06 21:02
+ * @author joshua
  * @since JDK 1.8
  */
 @Service

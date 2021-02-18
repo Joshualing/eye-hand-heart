@@ -3,8 +3,7 @@ package top.crossoverjie.nows.nows.filter;
 /**
  * Function:
  *
- * @author crossoverJie
- * Date: 2019-05-05 23:13
+ * @author joshua
  * @since JDK 1.8
  */
 public abstract class AbstractFilterProcess {
